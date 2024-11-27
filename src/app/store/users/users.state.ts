@@ -12,9 +12,9 @@ export interface IUsersState {
 export const initialState: IUsersState = {
   userRegistered: false,
   userAuthenticated: false,
-  token: null,
-  username: null,
+  token: '',
+  username: '',
   // profileCreated: false,
   usersList: [],
-  profile: null
+  profile: new ProfileModel(),
 };

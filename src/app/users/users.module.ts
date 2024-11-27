@@ -7,40 +7,30 @@ import { UsersService } from './users.service';
 import { UsersActions } from '../store/users/users.actions';
 
 import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { UpdateProfileComponent } from './profile/update/update-profile.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+import { ListComponent } from './profile/list/list.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ListComponent } from './list/list.component';
-import {
-  MdListModule,
-  MdCardModule,
-  MdButtonModule,
-  MdInputModule
-} from '@angular/material';
+import { UpdateProfileComponent } from './profile/update/update-profile.component';
 
-@NgModule ({
+@NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MdInputModule,
-    MdButtonModule,
-    MdCardModule,
-    MdListModule,
-    RouterModule
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatListModule,
+    RouterModule,
   ],
   declarations: [
     RegisterComponent,
-    LoginComponent,
     ListComponent,
     ProfileComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
   ],
-  providers: [
-    UsersService,
-    UsersActions
-  ],
+  providers: [UsersService, UsersActions],
 })
-
-export class UsersModule {
-
-}
+export class UsersModule {}

@@ -1,27 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgRedux } from 'ng2-redux';
 import { IAppState } from '../store';
+import { Store } from '@ngrx/store';
 
 @Component({
-    selector: 'message-handler',
-    template: `
-      <div>
-      {{message}}
-      </div>
-    `
+  selector: 'message-handler',
+  template: `
+    <div>
+      {{ message }}
+    </div>
+  `,
 })
-
 export class MessageHandlerComponent implements OnInit {
-  message: string;
+  message: string = '';
 
-  constructor (
-    private ngRedux: NgRedux<IAppState>
-  ) {}
+  constructor(private ngRedux: Store<IAppState>) {}
 
-  ngOnInit () {
+  ngOnInit() {
     this.ngRedux
-      .select(state => state.core.message)
-      .subscribe(message => this.message = message);
+      .select((state) => state.core.message)
+      .subscribe((message: string) => (this.message = message));
   }
 }

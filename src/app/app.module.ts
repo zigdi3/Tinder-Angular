@@ -1,51 +1,32 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
-import { Router } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { NgReduxModule, NgRedux } from 'ng2-redux';
-import { store, IAppState } from './store';
-
-import { CarRoutesModule } from './routes.module';
-
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { UsersModule } from './users/users.module';
+import { provideHttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
-import { MatchesModule } from './matches/matches.module';
-import { MaterialModule } from '@angular/material';
-
-import { AuthService } from './core/auth.service';
-import { config } from './core/config';
-
-import 'hammerjs';
-
+import { UsersModule } from './users/users.module';
+import { MaterialModule } from './material.module';
+import { coreReducer } from './store/core/core.reducer';
+import { usersReducer } from './store/users/users.reducer';
+import { StoreModule } from '@ngrx/store';
+import { matchesReducer } from './store/matches/matches.reducer';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgReduxModule,
-    UsersModule,
-    CarRoutesModule,
+    AppRoutingModule,
+    StoreModule.forRoot({
+      core: coreReducer,
+      users: usersReducer,
+      matches: matchesReducer,
+    }),
     CoreModule,
-    HttpModule,
-    MatchesModule,
     MaterialModule,
-    BrowserAnimationsModule
+    UsersModule,
   ],
-  bootstrap: [AppComponent]
+  providers: [provideHttpClient()],
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-   constructor (
-     private ngRedux: NgRedux<IAppState>,
-     private authService: AuthService,
-     private router: Router
-    ) {
-     this.ngRedux.provideStore(store);
-     config(ngRedux, router, authService);
-   }
- }
+export class AppModule {}

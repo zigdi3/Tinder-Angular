@@ -1,10 +1,11 @@
-<md-card>
-  <md-card-title>Matches</md-card-title>
-  <md-card-content>
+<mat-card>
+  <mat-card-title>Matches</mat-card-title>
+  <mat-card-content>
     <div *ngFor="let match of matches" class="match-container">
-      <h3><a [routerLink]="['/matches/chat', match.id]">{{match.user.name}}</a></h3> <!-- TODO: Make this link to the chat -->
+      <h3><a [routerLink]="['/matches/chat', match.id]">{{match.user.name}}</a></h3>
+      <!-- TODO: Make this link to the chat -->
       <span>{{match.timestamp.toLocaleString()}}</span>
       <span *ngIf="!match.seen"> - New</span> <!-- TODO: Styling.. -->
     </div>
-  </md-card-content>
-</md-card>
+  </mat-card-content>
+</mat-card>

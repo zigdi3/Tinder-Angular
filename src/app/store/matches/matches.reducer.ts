@@ -1,15 +1,15 @@
 import { MATCHES_LOAD, MESSAGES_LOAD } from './matches.actions';
 import { initialState } from './matches.state';
 
-function loadMatches(state, matches) {
+function loadMatches(state: any, matches: any) {
   return Object.assign({}, state, { matches });
 }
 
-function loadMessages(state, messages) {
+function loadMessages(state: any, messages: any) {
   return Object.assign({}, state, { messages });
 }
 
-export function matchesReducer(state = initialState, action) {
+export function matchesReducer(state = initialState, action: any) {
   switch (action.type) {
     case MATCHES_LOAD:
       return loadMatches(state, action.matches);

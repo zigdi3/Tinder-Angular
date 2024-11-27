@@ -5,11 +5,11 @@ import { HttpService } from '../core/http.service';
 export class UsersService {
   constructor(private httpService: HttpService) {}
 
-  register (user) {
+  register(user: any) {
     return this.httpService.post('auth/register', user);
   }
 
-  getProfile (id?) {
+  getProfile(id?: any) {
     if (id) {
       return this.httpService.get(`users/profile/${id}`);
     } else {
@@ -17,23 +17,23 @@ export class UsersService {
     }
   }
 
-  editProfile (user) {
+  editProfile(user: any) {
     return this.httpService.post('users/profile', user);
   }
 
-  login (user) {
+  login(user: any) {
     return this.httpService.post('auth/login', user);
   }
 
-  list (query?) {
+  list(query?: any) {
     return this.httpService.get(`users/list${query}`);
   }
 
-  like (id) {
+  like(id: any) {
     return this.httpService.post(`matches/like/${id}`, {});
   }
 
-  dislike (id) {
+  dislike(id: any) {
     return this.httpService.post(`matches/unlike/${id}`, {});
   }
 }

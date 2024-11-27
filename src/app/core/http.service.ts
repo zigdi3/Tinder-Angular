@@ -1,44 +1,52 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
 import { AuthService } from './auth.service';
-
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const ROOT_PATH = 'http://localhost:5000/';
 
 @Injectable()
 export class HttpService {
-  options;
-  headers;
+  options: any;
+  headers = new HttpHeaders();
 
-  constructor(private http: Http, private authService: AuthService) {
-    this.headers = new Headers({'Content-Type': 'application/json'});
-    this.options = new RequestOptions({headers: this.headers});
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.headers = this.getAuthHeaders();
+    // this.options = new HttpHeaders( this.headers);
   }
 
-  get(path) {
+  get(path: string): Observable<any> {
     this.applyAuthorizationHeader();
-    return this.http.get(ROOT_PATH + path, this.options)
-      .map(response => response.json());
+    return this.http.get(ROOT_PATH + path, { headers: this.getAuthHeaders() });
   }
 
-  post(path, data) {
+  post(path: any, data: any) {
     this.applyAuthorizationHeader();
-    return this.http.post(ROOT_PATH + path, JSON.stringify(data), this.options)
-      .map(response => response.json());
+    return this.http.post(ROOT_PATH + path, JSON.stringify(data), {
+      headers: this.getAuthHeaders(),
+    });
   }
 
-  delete(path) {
+  delete(path: any) {
     this.applyAuthorizationHeader();
-    return this.http.delete(ROOT_PATH + path, this.options)
-      .map(response => response.json());
+    return this.http.delete(ROOT_PATH + path, {
+      headers: this.getAuthHeaders(),
+    });
   }
 
-  applyAuthorizationHeader () {
+  getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  }
+
+  applyAuthorizationHeader() {
+    const authHeaders = new HttpHeaders();
     if (this.authService.isUserAuthenticated()) {
-      this.headers.set('Authorization', `bearer ${this.authService.getToken()}`);
+      authHeaders.set('Authorization', `bearer ${this.authService.getToken()}`);
       return;
     }
-    this.headers.set('Authorization', '');
+    authHeaders.set('Authorization', '');
+    this.headers = authHeaders;
   }
 }

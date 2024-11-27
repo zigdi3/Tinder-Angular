@@ -1,11 +1,11 @@
 import { initialState } from './core.state';
 import { ROUTES_CHANGE } from './core.actions';
 
-function handleMessage(state, action) {
+function handleMessage(state: any, action: any) {
   const result = action.result;
-    if (result) {
-      let message = result.message;
-      const errors = result.errors;
+  if (result) {
+    let message = result.message;
+    const errors = result.errors;
     if (errors) {
       const keys = Object.keys(errors);
       if (keys.length > 0) {
@@ -15,7 +15,7 @@ function handleMessage(state, action) {
     }
     if (message) {
       return Object.assign({}, state, {
-        message
+        message,
       });
     }
   }
@@ -23,13 +23,13 @@ function handleMessage(state, action) {
   return state;
 }
 
-function routeChange(state, action) {
+function routeChange(state: any, action: any) {
   return Object.assign({}, state, {
-      message: null
+    message: null,
   });
 }
 
-export function coreReducer(state = initialState, action) {
+export function coreReducer(state = initialState, action: any) {
   if (action.type === ROUTES_CHANGE) {
     return routeChange(state, action);
   } else {

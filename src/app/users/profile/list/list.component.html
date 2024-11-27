@@ -1,35 +1,25 @@
-<md-card class="wrapper">
-    <md-card-title>List Users</md-card-title>
-    <md-card-content>
-      
-      <md-input-container>
-        <input mdInput 
-          [(ngModel)]="searchQuery" 
-          placeholder="Search" 
-          type="text" 
-        />
-      </md-input-container> 
-      <button md-raised-button (click)="search()">Search</button>
-  
-      <md-list *ngIf='users'>
-        <md-list-item *ngFor='let user of users' >
-          <a 
-          [routerLink]="['/users/profile', user._id]"
-          >{{user.name}} - {{user.age}} - {{user.gender}}</a>
-          <button (click)="like(user._id)">Like</button>
-          <button (click)="dislike(user._id)">Dislike</button>
-        </md-list-item>
-      </md-list>
-  
-      <h2 *ngIf='!users'>No users on this page!</h2>
-  
-      <button [disabled]='page <= 1' md-raised-button (click)='prevPage()'>Previous</button>
-      <button
-        md-raised-button 
-        [disabled]='!users || users.length < 10' 
-        (click)='nextPage()'
-      >
-        Next
-      </button>
-    </md-card-content>
-  </md-card>
+<mat-card class="wrapper">
+  <mat-card-title>List Users</mat-card-title>
+  <mat-card-content>
+
+    <div>
+      <input matInput [(ngModel)]="searchQuery" placeholder="Search" type="text" />
+    </div>
+    <button mat-raised-button (click)="search()">Search</button>
+
+    <mat-list *ngIf='users'>
+      <mat-list-item *ngFor='let user of users'>
+        <a [routerLink]="['/users/profile', user._id]">{{user.name}} - {{user.age}} - {{user.gender}}</a>
+        <button (click)="like(user._id)">Like</button>
+        <button (click)="dislike(user._id)">Dislike</button>
+      </mat-list-item>
+    </mat-list>
+
+    <h2 *ngIf='!users'>No users on this page!</h2>
+
+    <button [disabled]='page <= 1' mat-raised-button (click)='prevPage()'>Previous</button>
+    <button mat-raised-button [disabled]='!users || users.length < 10' (click)='nextPage()'>
+      Next
+    </button>
+  </mat-card-content>
+</mat-card>
